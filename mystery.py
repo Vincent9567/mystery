@@ -6,17 +6,25 @@ def odd_words(sentence):
     for i in split_sentence:
         passed_words = re.sub("[.!?]", "", i)
         list_words.append(passed_words)
+
+    ordered_words_dict(list_words)
+
+def ordered_words_dict(list):
     ordered_words = {}
-    for word in list_words:
+    for word in list:
         if len(word) in ordered_words: 
             ordered_words[len(word)] = ordered_words[len(word)] + [word]
         else:
             ordered_words[len(word)]=[word]
+
+    odd_words_dict(ordered_words)
+    
+def odd_words_dict(ordered_words_list):
     odd_words_dictionary = {}
-    for word in ordered_words:
-        for odd_words in ordered_words[word]:
+    for word in ordered_words_list:
+        for odd_words in ordered_words_list[word]:
             if len(odd_words) % 2 == 1:
-                odd_words_dictionary[word] = ordered_words[word]
+                odd_words_dictionary[word] = ordered_words_list[word]
         else:
             continue
     return odd_words_dictionary
