@@ -1,30 +1,30 @@
 import re
 
-def my_func(x):
-    a = x.split(" ")
-    y = []
-    for x in a:
-        x2 = re.sub("[.!?]", "", x)
-        y.append(x2)
-    z = {}
-    for stuff in y:
-        if len(stuff) in z: 
-            z[len(stuff)] = z[len(stuff)] + [stuff]
+def odd_words(sentence):
+    split_sentence = sentence.split(" ")
+    list_words = []
+    for i in split_sentence:
+        passed_words = re.sub("[.!?]", "", i)
+        list_words.append(passed_words)
+    ordered_words = {}
+    for word in list_words:
+        if len(word) in ordered_words: 
+            ordered_words[len(word)] = ordered_words[len(word)] + [word]
         else:
-            z[len(stuff)]=[stuff]
-    a = {}
-    for y in z:
-        for x in z[y]:
-            if len(x) % 2 == 1:
-                a[y] = z[y]
+            ordered_words[len(word)]=[word]
+    odd_words_dictionary = {}
+    for word in ordered_words:
+        for odd_words in ordered_words[word]:
+            if len(odd_words) % 2 == 1:
+                odd_words_dictionary[word] = ordered_words[word]
         else:
             continue
-    return a
+    return odd_words_dictionary
 
 
 
 
 # Tests
-assert(my_func("This is a sentence. And yet another one!") == {1: ['a'], 3: ['And', 'yet', 'one'], 7: ['another']})
-assert(my_func("Miscollated alphabetic superimposition") == {11: ['Miscollated'], 15: ['superimposition']})
-print(my_func("a a a a bb bb bb ccc ccc") == {1: ['a', 'a', 'a', 'a'], 3: ['ccc', 'ccc']})
+assert(odd_words("This is a sentence. And yet another one!") == {1: ['a'], 3: ['And', 'yet', 'one'], 7: ['another']})
+assert(odd_words("Miscollated alphabetic superimposition") == {11: ['Miscollated'], 15: ['superimposition']})
+print(odd_words("a a a a bb bb bb ccc ccc") == {1: ['a', 'a', 'a', 'a'], 3: ['ccc', 'ccc']})
